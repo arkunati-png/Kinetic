@@ -1890,8 +1890,8 @@ void __dls3(size_t *sp, size_t *auxv)
 		}
 		argv[-1] = (void *)(argc - (argv-argv_orig));
 		if (!argv[0]) {
-			dprintf(2, "musl libc (" LDSO_ARCH ")\n"
-				"Version %s\n"
+			dprintf(2, "Kinetic libc (" LDSO_ARCH ")\n"
+				"Version %s (musl-compatible)\n"
 				"Dynamic Program Loader\n"
 				"Usage: %s [options] [--] pathname%s\n",
 				__libc_version, ldname,

@@ -34,6 +34,7 @@ Optional features:
   --enable-wrapper=...    build given musl toolchain wrapper [auto]
   --disable-shared        inhibit building shared library [enabled]
   --disable-static        inhibit building static library [enabled]
+  --disable-compat        omit the Kinetic glibc-compatibility layer [enabled]
 
 Optional packages:
   --with-malloc=...       choose malloc implementation [mallocng]
@@ -139,6 +140,7 @@ debug=no
 warnings=yes
 shared=auto
 static=yes
+kinetic_compat=yes
 wrapper=auto
 gcc_wrapper=no
 clang_wrapper=no
@@ -158,6 +160,8 @@ case "$arg" in
 --disable-shared|--enable-shared=no) shared=no ;;
 --enable-static|--enable-static=yes) static=yes ;;
 --disable-static|--enable-static=no) static=no ;;
+--enable-compat|--enable-compat=yes) kinetic_compat=yes ;;
+--disable-compat|--enable-compat=no) kinetic_compat=no ;;
 --enable-optimize) optimize=yes ;;
 --enable-optimize=*) optimize=${arg#*=} ;;
 --disable-optimize) optimize=no ;;
@@ -830,6 +834,7 @@ ALL_TOOLS = $tools
 TOOL_LIBS = $tool_libs
 ADD_CFI = $ADD_CFI
 MALLOC_DIR = $malloc_dir
+KINETIC_COMPAT = $kinetic_compat
 EOF
 test "x$static" = xno && echo "STATIC_LIBS ="
 test "x$shared" = xno && echo "SHARED_LIBS ="

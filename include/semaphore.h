@@ -8,6 +8,7 @@ extern "C" {
 
 #define __NEED_time_t
 #define __NEED_struct_timespec
+#define __NEED_clockid_t
 #include <bits/alltypes.h>
 
 #include <fcntl.h>
@@ -28,6 +29,11 @@ int    sem_timedwait(sem_t *__restrict, const struct timespec *__restrict);
 int    sem_trywait(sem_t *);
 int    sem_unlink(const char *);
 int    sem_wait(sem_t *);
+
+#ifdef _GNU_SOURCE
+/* Kinetic addition (glibc >= 2.30) */
+int    sem_clockwait(sem_t *__restrict, clockid_t, const struct timespec *__restrict);
+#endif
 
 #if _REDIR_TIME64
 __REDIR(sem_timedwait, __sem_timedwait_time64);

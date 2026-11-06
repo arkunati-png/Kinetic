@@ -42,4 +42,13 @@ __progname;
 __progname_full;
 
 __stack_chk_guard;
+
+/* Kinetic: public data objects. A non-PIE executable gets a copy
+ * relocation of these, so libc must reference them through the dynamic
+ * symbol table or it would update a different copy than the program sees. */
+error_message_count;
+error_one_per_line;
+error_print_progname;
+obstack_exit_failure;
+obstack_alloc_failed_handler;
 };

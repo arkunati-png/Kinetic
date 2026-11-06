@@ -1,3 +1,10 @@
+Kinetic libc is a derivative work of musl libc (v1.2.5). Kinetic's own
+additions are Copyright (c) 2026 Kinetic contributors and are released
+under the same MIT license; see the LICENSE file. Everything below applies
+to all musl-derived code, which is the vast majority of this tree.
+
+======================================================================
+
 musl as a whole is licensed under the following standard MIT license:
 
 ----------------------------------------------------------------------

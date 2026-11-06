@@ -1,6 +1,13 @@
 #ifndef _FEATURES_H
 #define _FEATURES_H
 
+/* Kinetic libc (a musl fork) identifies itself so portable code can
+ * feature-test for it. musl itself defines no such macro. */
+#define __KINETIC__ 1
+#define __KINETIC_MAJOR__ 0
+#define __KINETIC_MINOR__ 1
+#define __KINETIC_PATCH__ 0
+
 #if defined(_ALL_SOURCE) && !defined(_GNU_SOURCE)
 #define _GNU_SOURCE 1
 #endif
