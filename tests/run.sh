@@ -21,9 +21,9 @@ run_suite() {
 	name=$1; cc=$2; shift 2
 	out="$work/$name-tests"
 	mkdir -p "$out"
-	for t in compat compat_ext; do
-		$cc -O1 -Wall -Wno-unused-result -static -o "$out/$t-static" "$here/tests/$t.c"
-		$cc -O1 -Wall -Wno-unused-result -o "$out/$t-dynamic" "$here/tests/$t.c"
+	for t in compat compat_ext stress; do
+		$cc -O1 -Wall -Wno-unused-result -static -o "$out/$t-static" "$here/tests/$t.c" -lpthread
+		$cc -O1 -Wall -Wno-unused-result -o "$out/$t-dynamic" "$here/tests/$t.c" -lpthread
 		for link in static dynamic; do
 			echo "=== $name: $t ($link) ==="
 			if "$@" "$out/$t-$link" >"$out/$t-$link.log" 2>&1; then
