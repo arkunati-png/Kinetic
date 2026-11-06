@@ -89,6 +89,9 @@ ifeq ($(KINETIC_COMPAT),yes)
 KINETIC_SRC_DIRS = kinetic/src/*
 KINETIC_INCLUDES = $(wildcard $(srcdir)/kinetic/include/*.h $(srcdir)/kinetic/include/*/*.h)
 KINETIC_CFLAGS = -I$(srcdir)/kinetic/include
+ifeq ($(MALLOC_DIR),mallocng)
+KINETIC_CFLAGS += -DKINETIC_MALLOCNG
+endif
 endif
 
 ifeq ($(ARCH),)

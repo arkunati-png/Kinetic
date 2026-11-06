@@ -6,8 +6,9 @@ simplicity and adds the glibc-isms that most often stop real software from
 building or running on musl.
 
 * **As light as musl.** The base is unmodified musl. The compatibility layer
-  adds about 15 KB (1.9%) to `libc.so` and, in static builds, is only linked
-  into programs that call it. `./configure --disable-compat` removes it.
+  adds about 33 KB (4.2%) to `libc.so` and, in static builds, is only linked
+  into programs that call it (a program using none of it is byte-identical to
+  one built with musl). `./configure --disable-compat` removes it entirely.
 * **Drop-in for musl.** The ABI is musl's. The dynamic loader keeps the name
   `ld-musl-<arch>.so.1`, so existing musl binaries run unchanged on Kinetic.
 * **More apps.** Missing headers and functions that cause "this doesn't build
@@ -35,10 +36,11 @@ tests/run.sh      # builds Kinetic, runs the compat tests static + dynamic
 
 ## Status
 
-Version 0.1.0. Developed and tested on x86_64 Linux. The compatibility layer
-is architecture-neutral except `getcontext`/`setcontext`/`makecontext`/
-`swapcontext`, which are implemented for x86_64 only so far. See COMPAT.md
-for what is not done yet (notably NSS, full `iconv`, `fts`, `argp`).
+Version 0.1.0. Developed and tested on x86_64 Linux only (433 checks, static
+and dynamic). The compatibility layer is architecture-neutral except
+`getcontext`/`setcontext`/`makecontext`/`swapcontext`, which exist for x86_64
+only. Not yet tested on other architectures. See COMPAT.md for the full
+feature list, limitations, and what is not done (notably NSS and `iconv`).
 
 ## Lineage and license
 

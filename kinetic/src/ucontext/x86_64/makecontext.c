@@ -1,32 +1,14 @@
 #define _GNU_SOURCE
 #include <stdarg.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <ucontext.h>
-#include "syscall.h"
-#include "libc.h"
+#include "../ctxcommon.h"
 
 /* The assembly in this directory hardcodes these ucontext_t offsets. */
-#define KN_CHECK(name, cond) typedef char kn_check_##name[(cond) ? 1 : -1]
 KN_CHECK(gregs, offsetof(ucontext_t, uc_mcontext.gregs) == 40);
 KN_CHECK(fpregs, offsetof(ucontext_t, uc_mcontext.fpregs) == 224);
 KN_CHECK(sigmask, offsetof(ucontext_t, uc_sigmask) == 296);
 KN_CHECK(fpmem, offsetof(ucontext_t, __fpregs_mem) == 424);
 
 extern void __kinetic_start_context(void) hidden;
-
-hidden _Noreturn void __kinetic_context_return(ucontext_t *link)
-{
-	if (link) setcontext(link);
-	exit(0);
-}
-
-/* Shared error exit for the assembly: translate a raw -errno. */
-hidden int __kinetic_ctx_ret(long r)
-{
-	return __syscall_ret(r);
-}
 
 void makecontext(ucontext_t *uc, void (*fn)(void), int argc, ...)
 {

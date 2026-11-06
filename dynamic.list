@@ -51,4 +51,8 @@ error_one_per_line;
 error_print_progname;
 obstack_exit_failure;
 obstack_alloc_failed_handler;
+argp_program_version;
+argp_program_version_hook;
+argp_program_bug_address;
+argp_err_exit_status;
 };

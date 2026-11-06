@@ -198,7 +198,7 @@ static void test_misc(void)
 
 	struct mallinfo mi = mallinfo();
 	struct mallinfo2 mi2 = mallinfo2();
-	CHECK(mi.arena == 0 && mi2.arena == 0);
+	CHECK(mi.arena >= 0 && mi2.uordblks <= mi2.arena);   /* real numbers: see compat_ext.c */
 	CHECK(mallopt(M_ARENA_MAX, 1) == 1);
 	CHECK(malloc_trim(0) == 0);
 
@@ -451,7 +451,7 @@ static void co_fp(void)
 
 static void test_ucontext(void)
 {
-	SECTION("ucontext (x86_64)");
+	SECTION("ucontext");
 	static char stack[64 * 1024];
 	volatile int count = 0;
 	ucontext_t here;

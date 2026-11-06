@@ -18,10 +18,9 @@ void *memalign(size_t, size_t);
 
 size_t malloc_usable_size(void *);
 
-/* Kinetic additions. The allocator keeps no global statistics, so
- * mallinfo()/mallinfo2() report zeros and malloc_trim()/mallopt() are
- * accepted and ignored; they exist so that software which only logs or
- * tunes the allocator still builds and runs. See COMPAT.md. */
+/* Kinetic additions. With the default allocator mallinfo()/mallinfo2() are
+ * computed from allocator metadata on demand; mallopt() is accepted and
+ * ignored and malloc_trim() is a no-op. See COMPAT.md. */
 struct mallinfo {
 	int arena, ordblks, smblks, hblks, hblkd;
 	int usmblks, fsmblks, uordblks, fordblks, keepcost;

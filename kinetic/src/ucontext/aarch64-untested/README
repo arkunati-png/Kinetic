@@ -1,0 +1,15 @@
+aarch64 getcontext/setcontext/makecontext/swapcontext -- NOT BUILT, NOT VERIFIED
+
+This directory is deliberately not named "aarch64", so the Makefile ignores
+it and Kinetic on aarch64 behaves as musl does (the functions are declared
+but not defined).
+
+State: the code assembles and links for aarch64, and the ucontext_t offsets
+it hardcodes are checked at compile time. The aarch64 test binary built
+against it segfaulted immediately under qemu-user 8.2.2 (before main printed
+anything), and the cause was not isolated: it could be this code, the
+cross-toolchain, or qemu. Do not enable it until
+`tests/compat.c` passes on real hardware or a known-good emulator.
+
+To try it: rename this directory to "aarch64", build with a cross compiler,
+and run tests/run.sh with KINETIC_AARCH64_CROSS and KINETIC_QEMU_AARCH64 set.
